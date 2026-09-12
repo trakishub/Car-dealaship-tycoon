@@ -1,1 +1,228 @@
+-- Bazuka as Were
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local MarketplaceService = game:GetService("MarketplaceService")
 
+local player = Players.LocalPlayer
+
+-- Pega nome do jogo
+local gameName = MarketplaceService:GetProductInfo(game.PlaceId).Name
+
+--==================== TELA DE CARREGAMENTO AAA ====================
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "TelaCarregamentoAAA"
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Fundo neon roxo + preto animado
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(1,0,1,0)
+Frame.Position = UDim2.new(0,0,0,0)
+Frame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+Frame.Parent = ScreenGui
+
+local Gradient = Instance.new("UIGradient")
+Gradient.Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0,120,255)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0,45,100)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))
+}
+Gradient.Rotation = 90
+Gradient.Parent = Frame
+
+-- Barra de carregamento + Percentual
+local BarBG = Instance.new("Frame")
+BarBG.Size = UDim2.new(0.6,0,0.05,0)
+BarBG.Position = UDim2.new(0.2,0,0.8,0)
+BarBG.BackgroundColor3 = Color3.fromRGB(0,30,70)
+BarBG.Parent = Frame
+
+local Bar = Instance.new("Frame")
+Bar.Size = UDim2.new(0,0,1,0)
+Bar.Position = UDim2.new(0,0,0,0)
+Bar.BackgroundColor3 = Color3.fromRGB(0,170,255)
+Bar.Parent = BarBG
+
+local Percent = Instance.new("TextLabel")
+Percent.Size = UDim2.new(0.6,0,0.05,0)
+Percent.Position = UDim2.new(0.2,0,0.87,0)
+Percent.BackgroundTransparency = 1
+Percent.Text = "0%"
+Percent.TextColor3 = Color3.fromRGB(255,255,255)
+Percent.TextScaled = true
+Percent.Font = Enum.Font.GothamBold
+Percent.Parent = Frame
+
+-- Foto do usuário centralizada
+local Avatar = Instance.new("ImageLabel")
+Avatar.Size = UDim2.new(0,120,0,120)
+Avatar.Position = UDim2.new(0.5,0,0.35,0)
+Avatar.AnchorPoint = Vector2.new(0.5,0.5)
+Avatar.BackgroundTransparency = 1
+Avatar.Image = Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+Avatar.Parent = Frame
+
+-- Nickname animado abaixo da foto
+local Nick = Instance.new("TextLabel")
+Nick.Size = UDim2.new(0.3,0,0.05,0)
+Nick.Position = UDim2.new(0.5,0,0.5,0)
+Nick.AnchorPoint = Vector2.new(0.5,0)
+Nick.BackgroundTransparency = 1
+Nick.Text = player.Name
+Nick.TextColor3 = Color3.fromRGB(255,255,255)
+Nick.Font = Enum.Font.GothamBold
+Nick.TextScaled = true
+Nick.TextStrokeTransparency = 0.7
+Nick.Parent = Frame
+
+task.spawn(function()
+	local t=0
+	while ScreenGui.Parent do
+		t=t+0.03
+		local scale = 1 + 0.05*math.sin(t*3)
+		Nick.TextSize = 30*scale
+		Nick.TextColor3 = Color3.fromRGB(80,190,255)
+		task.wait(0.03)
+	end
+end)
+
+-- Texto principal animado
+local Label = Instance.new("TextLabel")
+Label.Size = UDim2.new(0.6,0,0.08,0)
+Label.Position = UDim2.new(0.5,0,0.2,0)
+Label.AnchorPoint = Vector2.new(0.5,0)
+Label.BackgroundTransparency = 1
+Label.Text = "Phantom Client New World"
+Label.TextScaled = true
+Label.Font = Enum.Font.GothamBold
+Label.TextColor3 = Color3.fromRGB(255,255,255)
+Label.Parent = Frame
+
+task.spawn(function()
+	local t=0
+	while ScreenGui.Parent do
+		t=t+0.03
+		local scale = 1 + 0.07*math.sin(t*2)
+		Label.TextSize = 50*scale
+		local b=210+45*math.sin(t*1.5)
+		Label.TextColor3=Color3.fromRGB(40,math.clamp(b,120,255),255)
+		Label.Position = UDim2.new(0.5,0,0.2+0.01*math.sin(t*1.2),0)
+		task.wait(0.03)
+	end
+end)
+
+-- Texto do jogo que está entrando
+local GameLabel = Instance.new("TextLabel")
+GameLabel.Size = UDim2.new(0.6,0,0.05,0)
+GameLabel.Position = UDim2.new(0.5,0,0.58,0)
+GameLabel.AnchorPoint = Vector2.new(0.5,0)
+GameLabel.BackgroundTransparency = 1
+GameLabel.Text = "Entrando em: "..gameName
+GameLabel.TextScaled = true
+GameLabel.Font = Enum.Font.Gotham
+GameLabel.TextColor3 = Color3.fromRGB(150,210,255)
+GameLabel.Parent = Frame
+
+-- Função para criar partículas interativas
+local function CreateParticle(position)
+	local p = Instance.new("Frame")
+	p.Size = UDim2.new(0, math.random(3,7), 0, math.random(3,7))
+	p.Position = position
+	p.BackgroundColor3 = Color3.fromRGB(math.random(0,80),math.random(120,220),255)
+	p.BackgroundTransparency = 0.3
+	p.AnchorPoint = Vector2.new(0.5,0.5)
+	p.Parent = Frame
+	
+	task.spawn(function()
+		while ScreenGui.Parent do
+			local target = UDim2.new(math.random(),0,math.random(),0)
+			local tween = TweenService:Create(p,TweenInfo.new(math.random(2,5),Enum.EasingStyle.Sine,Enum.EasingDirection.InOut,true),{Position=target, BackgroundTransparency=math.random()})
+			tween:Play()
+			tween.Completed:Wait()
+		end
+	end)
+end
+
+-- Detecta mouse ou toque
+local lastInputPos = UDim2.new(0.5,0,0.5,0)
+UserInputService.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+		local scaleX = input.Position.X / workspace.CurrentCamera.ViewportSize.X
+		local scaleY = input.Position.Y / workspace.CurrentCamera.ViewportSize.Y
+		lastInputPos = UDim2.new(scaleX,0,scaleY,0)
+		CreateParticle(lastInputPos)
+	end
+end)
+
+-- Criação automática de partículas de fundo
+for i=1,50 do
+	local x = math.random()
+	local y = math.random()
+	CreateParticle(UDim2.new(x,0,y,0))
+end
+
+-- Linhas horizontais animadas
+for i=1,20 do
+	local line = Instance.new("Frame")
+	line.Size = UDim2.new(0,math.random(50,200),0,2)
+	line.Position = UDim2.new(-0.2,0,math.random(),0)
+	line.BackgroundColor3 = Color3.fromRGB(0,170,255)
+	line.BackgroundTransparency = 0.5
+	line.AnchorPoint = Vector2.new(0,0.5)
+	line.Parent = Frame
+	
+	task.spawn(function()
+		while ScreenGui.Parent do
+			local tween = TweenService:Create(line,TweenInfo.new(math.random(2,4),Enum.EasingStyle.Linear),{Position=UDim2.new(1.2,0,math.random(),0)})
+			tween:Play()
+			tween.Completed:Wait()
+			line.Position = UDim2.new(-0.2,0,math.random(),0)
+		end
+	end)
+end
+
+-- Mini explosões neon no fundo
+for i=1,30 do
+	local spark = Instance.new("Frame")
+	local size = math.random(10,25)
+	spark.Size = UDim2.new(0,size,0,size)
+	spark.Position = UDim2.new(math.random(),0,math.random(),0)
+	spark.AnchorPoint = Vector2.new(0.5,0.5)
+	spark.BackgroundColor3 = Color3.fromRGB(0,170,255)
+	spark.BackgroundTransparency = 0.6
+	spark.Parent = Frame
+	
+	task.spawn(function()
+		while ScreenGui.Parent do
+			local tween = TweenService:Create(spark,TweenInfo.new(1.2,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut,true),
+				{Size=UDim2.new(0,size*1.5,0,size*1.5), BackgroundTransparency=0.9})
+			tween:Play()
+			tween.Completed:Wait()
+		end
+	end)
+end
+
+--==================== SOM DURANTE A BARRA ====================
+local Sound = Instance.new("Sound")
+Sound.SoundId = "rbxassetid://98337901681441"  -- seu ID
+Sound.Volume = 0.7
+Sound.Looped = false  -- toca apenas uma vez
+Sound.Parent = Frame
+Sound.TimePosition = 0  -- garante que comece do início
+Sound:Play()
+
+-- Carregamento da barra por 20 segundos
+local totalTime = 20
+for i=1,100 do
+	Bar.Size = UDim2.new(i/100,0,1,0)
+	Percent.Text = i.."%"
+	task.wait(totalTime/100)
+end
+
+-- Aguarda 0.5s para garantir que o som finalize
+task.wait(0.5)
+
+-- Remove a tela
+ScreenGui:Destroy()
