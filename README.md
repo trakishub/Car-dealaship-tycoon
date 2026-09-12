@@ -1,5 +1,5 @@
 
---// PHANTOM CLIENT NEW WORLD
+--// TRAKIS HUB 
 --// Loading Screen - Blue / Black Neon
 
 local TweenService = game:GetService("TweenService")
@@ -13,7 +13,7 @@ local player = Players.LocalPlayer
 -- CONFIG
 --==================================================
 
-local TOTAL_TIME = 20
+local TOTAL_TIME = 10
 
 local BLUE = Color3.fromRGB(0, 170, 255)
 local BLUE_LIGHT = Color3.fromRGB(80, 210, 255)
@@ -30,7 +30,7 @@ end)
 --==================================================
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "PhantomLoadingScreen"
+ScreenGui.Name = "trakisLoadingScreen"
 ScreenGui.IgnoreGuiInset = true
 ScreenGui.ResetOnSpawn = false
 ScreenGui.DisplayOrder = 999999
@@ -204,7 +204,7 @@ local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(0.9, 0, 0, 55)
 Title.Position = UDim2.new(0.05, 0, 0.39, 0)
 Title.BackgroundTransparency = 1
-Title.Text = "PHANTOM CLIENT"
+Title.Text = "TRAKIS HUB"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.Font = Enum.Font.GothamBlack
 Title.TextScaled = true
@@ -224,7 +224,7 @@ local Subtitle = Instance.new("TextLabel")
 Subtitle.Size = UDim2.new(0.9, 0, 0, 28)
 Subtitle.Position = UDim2.new(0.05, 0, 0.50, 0)
 Subtitle.BackgroundTransparency = 1
-Subtitle.Text = "NEW WORLD"
+Subtitle.Text = "BEST SCRIPT"
 Subtitle.TextColor3 = BLUE_LIGHT
 Subtitle.Font = Enum.Font.GothamBold
 Subtitle.TextScaled = true
@@ -333,7 +333,7 @@ local Footer = Instance.new("TextLabel")
 Footer.Size = UDim2.new(0.8, 0, 0, 20)
 Footer.Position = UDim2.new(0.1, 0, 0.92, 0)
 Footer.BackgroundTransparency = 1
-Footer.Text = "PHANTOM CLIENT • LOADING SYSTEM"
+Footer.Text = "TRAKIS HUB • LOADING SYSTEM"
 Footer.TextColor3 = Color3.fromRGB(70, 110, 135)
 Footer.Font = Enum.Font.Gotham
 Footer.TextScaled = true
@@ -534,7 +534,11 @@ for i = 1, 100 do
 		Status.Text = loadingMessages[5]
 	end
 
-	task.wait(TOTAL_TIME / 100)
+	task.wait(TOTAL_TIME / 10)
 end
 
---================================================== -- FINALIZAÇÃO --================================================== Status.Text = "Carregamento concluído!" Percent.Text = "100%" task.wait(0.6) local fadeObjects = { Panel, Background, TopLine } for _, object in ipairs(fadeObjects) do if object:IsA("Frame") then TweenService:Create( object, TweenInfo.new(0.7, Enum.EasingStyle.Quad), {BackgroundTransparency = 1} ):Play() end end TweenService:Create( Title, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Subtitle, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Nick,TweenService:Create( Nick, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( GameLabel, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Status, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Percent, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Footer, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Avatar, TweenInfo.new(0.5), {ImageTransparency = 1} ):Play() task.wait(0.8) ScreenGui:Destroy()
+--================================================== -- FINALIZAÇÃO --================================================== Status.Text = "Carregamento concluído!" Percent.Text = "100%" task.wait(0.6) local fadeObjects = { Panel, Background, TopLine } for _, object in ipairs(fadeObjects) do if object:IsA("Frame") then TweenService:Create( object, TweenInfo.new(0.7, Enum.EasingStyle.Quad), {BackgroundTransparency = 1} ):Play() end end TweenService:Create( Title, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Subtitle, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Nick,TweenService:Create( Nick, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( GameLabel, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Status, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Percent, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Footer, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Avatar, TweenInfo.new(0.5), {ImageTransparency = 1} ):Play() 
+
+task.wait(0.8) 
+
+ ScreenGui:Destroy()
