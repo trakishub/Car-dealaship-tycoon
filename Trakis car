@@ -1,5 +1,5 @@
 
---// PHANTOM CLIENT NEW WORLD
+--// TRAKIS HUB
 --// Loading Screen - Blue / Black Neon
 
 local TweenService = game:GetService("TweenService")
@@ -13,7 +13,7 @@ local player = Players.LocalPlayer
 -- CONFIG
 --==================================================
 
-local TOTAL_TIME = 20
+local TOTAL_TIME = 10
 
 local BLUE = Color3.fromRGB(0, 170, 255)
 local BLUE_LIGHT = Color3.fromRGB(80, 210, 255)
@@ -537,6 +537,7 @@ for i = 1, 100 do
 	task.wait(TOTAL_TIME / 100)
 end
 
+
 --==================================================
 -- FINALIZAÇÃO
 --==================================================
@@ -613,4 +614,3 @@ TweenService:Create(
 task.wait(0.8)
 
 ScreenGui:Destroy()
-```
