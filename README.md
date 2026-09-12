@@ -1,1 +1,543 @@
-# Car-dealaship-tycoon
+
+--// PHANTOM CLIENT NEW WORLD
+--// Loading Screen - Blue / Black Neon
+
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local player = Players.LocalPlayer
+
+--==================================================
+-- CONFIG
+--==================================================
+
+local TOTAL_TIME = 20
+
+local BLUE = Color3.fromRGB(0, 170, 255)
+local BLUE_LIGHT = Color3.fromRGB(80, 210, 255)
+local DARK = Color3.fromRGB(3, 7, 15)
+local DARK2 = Color3.fromRGB(7, 15, 28)
+
+local gameName = "Carregando..."
+pcall(function()
+	gameName = MarketplaceService:GetProductInfo(game.PlaceId).Name
+end)
+
+--==================================================
+-- SCREEN GUI
+--==================================================
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "PhantomLoadingScreen"
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.ResetOnSpawn = false
+ScreenGui.DisplayOrder = 999999
+ScreenGui.Parent = player:WaitForChild("PlayerGui")
+
+--==================================================
+-- BACKGROUND
+--==================================================
+
+local Background = Instance.new("Frame")
+Background.Size = UDim2.fromScale(1, 1)
+Background.BackgroundColor3 = DARK
+Background.BorderSizePixel = 0
+Background.Parent = ScreenGui
+
+local BackgroundGradient = Instance.new("UIGradient")
+BackgroundGradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 15, 30)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(2, 6, 14)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 20, 40))
+})
+BackgroundGradient.Rotation = 45
+BackgroundGradient.Parent = Background
+
+--==================================================
+-- BACKGROUND GLOW
+--==================================================
+
+local Glow = Instance.new("Frame")
+Glow.Size = UDim2.fromScale(0.7, 0.7)
+Glow.Position = UDim2.fromScale(0.5, 0.48)
+Glow.AnchorPoint = Vector2.new(0.5, 0.5)
+Glow.BackgroundColor3 = BLUE
+Glow.BackgroundTransparency = 0.94
+Glow.BorderSizePixel = 0
+Glow.Parent = Background
+
+local GlowCorner = Instance.new("UICorner")
+GlowCorner.CornerRadius = UDim.new(1, 0)
+GlowCorner.Parent = Glow
+
+task.spawn(function()
+	while ScreenGui.Parent do
+		TweenService:Create(
+			Glow,
+			TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
+			{BackgroundTransparency = 0.97}
+		):Play()
+
+		task.wait(2.5)
+
+		TweenService:Create(
+			Glow,
+			TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
+			{BackgroundTransparency = 0.94}
+		):Play()
+
+		task.wait(2.5)
+	end
+end)
+
+--==================================================
+-- TOP LINE
+--==================================================
+
+local TopLine = Instance.new("Frame")
+TopLine.Size = UDim2.new(1, 0, 0, 2)
+TopLine.Position = UDim2.new(0, 0, 0, 0)
+TopLine.BackgroundColor3 = BLUE
+TopLine.BorderSizePixel = 0
+TopLine.Parent = Background
+
+local TopGradient = Instance.new("UIGradient")
+TopGradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 40, 80)),
+	ColorSequenceKeypoint.new(0.5, BLUE_LIGHT),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 40, 80))
+})
+TopGradient.Parent = TopLine
+
+--==================================================
+-- MAIN PANEL
+--==================================================
+
+local Panel = Instance.new("Frame")
+Panel.Size = UDim2.new(0, 500, 0, 500)
+Panel.Position = UDim2.fromScale(0.5, 0.5)
+Panel.AnchorPoint = Vector2.new(0.5, 0.5)
+Panel.BackgroundColor3 = DARK2
+Panel.BackgroundTransparency = 0.08
+Panel.BorderSizePixel = 0
+Panel.Parent = Background
+
+local PanelCorner = Instance.new("UICorner")
+PanelCorner.CornerRadius = UDim.new(0, 22)
+PanelCorner.Parent = Panel
+
+local PanelStroke = Instance.new("UIStroke")
+PanelStroke.Color = BLUE
+PanelStroke.Thickness = 1.5
+PanelStroke.Transparency = 0.35
+PanelStroke.Parent = Panel
+
+--==================================================
+-- PANEL TOP GLOW
+--==================================================
+
+local PanelGlow = Instance.new("Frame")
+PanelGlow.Size = UDim2.new(0.7, 0, 0, 2)
+PanelGlow.Position = UDim2.new(0.15, 0, 0, 0)
+PanelGlow.BackgroundColor3 = BLUE_LIGHT
+PanelGlow.BorderSizePixel = 0
+PanelGlow.Parent = Panel
+
+local PanelGlowCorner = Instance.new("UICorner")
+PanelGlowCorner.CornerRadius = UDim.new(1, 0)
+PanelGlowCorner.Parent = PanelGlow
+
+--==================================================
+-- LOGO / ICON
+--==================================================
+
+local Avatar = Instance.new("ImageLabel")
+Avatar.Size = UDim2.new(0, 115, 0, 115)
+Avatar.Position = UDim2.new(0.5, 0, 0.23, 0)
+Avatar.AnchorPoint = Vector2.new(0.5, 0.5)
+Avatar.BackgroundColor3 = Color3.fromRGB(0, 20, 38)
+Avatar.BorderSizePixel = 0
+Avatar.Image = Players:GetUserThumbnailAsync(
+	player.UserId,
+	Enum.ThumbnailType.HeadShot,
+	Enum.ThumbnailSize.Size420x420
+)
+Avatar.Parent = Panel
+
+local AvatarCorner = Instance.new("UICorner")
+AvatarCorner.CornerRadius = UDim.new(1, 0)
+AvatarCorner.Parent = Avatar
+
+local AvatarStroke = Instance.new("UIStroke")
+AvatarStroke.Color = BLUE
+AvatarStroke.Thickness = 3
+AvatarStroke.Parent = Avatar
+
+-- pulsação do avatar
+task.spawn(function()
+	while ScreenGui.Parent do
+		TweenService:Create(
+			AvatarStroke,
+			TweenInfo.new(1.2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
+			{Transparency = 0.6}
+		):Play()
+
+		task.wait(1.2)
+
+		TweenService:Create(
+			AvatarStroke,
+			TweenInfo.new(1.2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
+			{Transparency = 0}
+		):Play()
+
+		task.wait(1.2)
+	end
+end)
+
+--==================================================
+-- TITLE
+--==================================================
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(0.9, 0, 0, 55)
+Title.Position = UDim2.new(0.05, 0, 0.39, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "PHANTOM CLIENT"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.GothamBlack
+Title.TextScaled = true
+Title.Parent = Panel
+
+local TitleStroke = Instance.new("UIStroke")
+TitleStroke.Color = BLUE
+TitleStroke.Thickness = 1.5
+TitleStroke.Transparency = 0.25
+TitleStroke.Parent = Title
+
+--==================================================
+-- SUBTITLE
+--==================================================
+
+local Subtitle = Instance.new("TextLabel")
+Subtitle.Size = UDim2.new(0.9, 0, 0, 28)
+Subtitle.Position = UDim2.new(0.05, 0, 0.50, 0)
+Subtitle.BackgroundTransparency = 1
+Subtitle.Text = "NEW WORLD"
+Subtitle.TextColor3 = BLUE_LIGHT
+Subtitle.Font = Enum.Font.GothamBold
+Subtitle.TextScaled = true
+Subtitle.Parent = Panel
+
+--==================================================
+-- USER NAME
+--==================================================
+
+local Nick = Instance.new("TextLabel")
+Nick.Size = UDim2.new(0.8, 0, 0, 25)
+Nick.Position = UDim2.new(0.1, 0, 0.57, 0)
+Nick.BackgroundTransparency = 1
+Nick.Text = "Olá, " .. player.Name
+Nick.TextColor3 = Color3.fromRGB(200, 220, 235)
+Nick.Font = Enum.Font.GothamMedium
+Nick.TextScaled = true
+Nick.Parent = Panel
+
+--==================================================
+-- GAME NAME
+--==================================================
+
+local GameLabel = Instance.new("TextLabel")
+GameLabel.Size = UDim2.new(0.85, 0, 0, 24)
+GameLabel.Position = UDim2.new(0.075, 0, 0.635, 0)
+GameLabel.BackgroundTransparency = 1
+GameLabel.Text = "Entrando em: " .. gameName
+GameLabel.TextColor3 = Color3.fromRGB(130, 160, 180)
+GameLabel.Font = Enum.Font.Gotham
+GameLabel.TextScaled = true
+GameLabel.Parent = Panel
+
+--==================================================
+-- STATUS
+--==================================================
+
+local Status = Instance.new("TextLabel")
+Status.Size = UDim2.new(0.8, 0, 0, 25)
+Status.Position = UDim2.new(0.1, 0, 0.70, 0)
+Status.BackgroundTransparency = 1
+Status.Text = "Inicializando..."
+Status.TextColor3 = BLUE_LIGHT
+Status.Font = Enum.Font.GothamBold
+Status.TextScaled = true
+Status.Parent = Panel
+
+--==================================================
+-- PROGRESS BAR BACKGROUND
+--==================================================
+
+local BarBG = Instance.new("Frame")
+BarBG.Size = UDim2.new(0.78, 0, 0, 12)
+BarBG.Position = UDim2.new(0.11, 0, 0.79, 0)
+BarBG.BackgroundColor3 = Color3.fromRGB(15, 30, 45)
+BarBG.BorderSizePixel = 0
+BarBG.Parent = Panel
+
+local BarBGCorner = Instance.new("UICorner")
+BarBGCorner.CornerRadius = UDim.new(1, 0)
+BarBGCorner.Parent = BarBG
+
+local Bar = Instance.new("Frame")
+Bar.Size = UDim2.new(0, 0, 1, 0)
+Bar.BackgroundColor3 = BLUE
+Bar.BorderSizePixel = 0
+Bar.Parent = BarBG
+
+local BarCorner = Instance.new("UICorner")
+BarCorner.CornerRadius = UDim.new(1, 0)
+BarCorner.Parent = Bar
+
+local BarGradient = Instance.new("UIGradient")
+BarGradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 100, 200)),
+	ColorSequenceKeypoint.new(0.5, BLUE_LIGHT),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 120, 255))
+})
+BarGradient.Parent = Bar
+
+local BarStroke = Instance.new("UIStroke")
+BarStroke.Color = BLUE
+BarStroke.Thickness = 1
+BarStroke.Transparency = 0.3
+BarStroke.Parent = BarBG
+
+--==================================================
+-- PERCENT
+--==================================================
+
+local Percent = Instance.new("TextLabel")
+Percent.Size = UDim2.new(0.25, 0, 0, 28)
+Percent.Position = UDim2.new(0.375, 0, 0.825, 0)
+Percent.BackgroundTransparency = 1
+Percent.Text = "0%"
+Percent.TextColor3 = Color3.fromRGB(255, 255, 255)
+Percent.Font = Enum.Font.GothamBlack
+Percent.TextScaled = true
+Percent.Parent = Panel
+
+--==================================================
+-- FOOTER
+--==================================================
+
+local Footer = Instance.new("TextLabel")
+Footer.Size = UDim2.new(0.8, 0, 0, 20)
+Footer.Position = UDim2.new(0.1, 0, 0.92, 0)
+Footer.BackgroundTransparency = 1
+Footer.Text = "PHANTOM CLIENT • LOADING SYSTEM"
+Footer.TextColor3 = Color3.fromRGB(70, 110, 135)
+Footer.Font = Enum.Font.Gotham
+Footer.TextScaled = true
+Footer.Parent = Panel
+
+--==================================================
+-- PARTICLES
+--==================================================
+
+local function CreateParticle()
+	local particle = Instance.new("Frame")
+
+	local size = math.random(2, 5)
+
+	particle.Size = UDim2.new(0, size, 0, size)
+	particle.Position = UDim2.new(
+		math.random(),
+		0,
+		math.random(),
+		0
+	)
+
+	particle.BackgroundColor3 = BLUE
+	particle.BackgroundTransparency = math.random(30, 70) / 100
+	particle.BorderSizePixel = 0
+	particle.AnchorPoint = Vector2.new(0.5, 0.5)
+	particle.Parent = Background
+
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(1, 0)
+	corner.Parent = particle
+
+	task.spawn(function()
+		while particle.Parent do
+			local target = UDim2.new(
+				math.random(),
+				0,
+				math.random(),
+				0
+			)
+
+			local tween = TweenService:Create(
+				particle,
+				TweenInfo.new(
+					math.random(3, 6),
+					Enum.EasingStyle.Sine,
+					Enum.EasingDirection.InOut
+				),
+				{
+					Position = target,
+					BackgroundTransparency = math.random(20, 80) / 100
+				}
+			)
+
+			tween:Play()
+			tween.Completed:Wait()
+		end
+	end)
+end
+
+for i = 1, 45 do
+	CreateParticle()
+end
+
+--==================================================
+-- MOUSE / TOUCH PARTICLES
+--==================================================
+
+UserInputService.InputChanged:Connect(function(input)
+	if not ScreenGui.Parent then
+		return
+	end
+
+	if input.UserInputType == Enum.UserInputType.MouseMovement
+		or input.UserInputType == Enum.UserInputType.Touch then
+
+		local camera = workspace.CurrentCamera
+
+		if camera then
+			local x = input.Position.X / camera.ViewportSize.X
+			local y = input.Position.Y / camera.ViewportSize.Y
+
+			local particle = Instance.new("Frame")
+			particle.Size = UDim2.new(0, 5, 0, 5)
+			particle.Position = UDim2.new(x, 0, y, 0)
+			particle.AnchorPoint = Vector2.new(0.5, 0.5)
+			particle.BackgroundColor3 = BLUE_LIGHT
+			particle.BackgroundTransparency = 0.15
+			particle.BorderSizePixel = 0
+			particle.Parent = Background
+
+			local corner = Instance.new("UICorner")
+			corner.CornerRadius = UDim.new(1, 0)
+			corner.Parent = particle
+
+			TweenService:Create(
+				particle,
+				TweenInfo.new(0.7, Enum.EasingStyle.Quad),
+				{
+					Size = UDim2.new(0, 18, 0, 18),
+					BackgroundTransparency = 1
+				}
+			):Play()
+
+			task.delay(0.8, function()
+				if particle then
+					particle:Destroy()
+				end
+			end)
+		end
+	end
+end)
+
+--==================================================
+-- MOVING NEON LINES
+--==================================================
+
+for i = 1, 12 do
+	local line = Instance.new("Frame")
+
+	line.Size = UDim2.new(0, math.random(80, 220), 0, 1)
+	line.Position = UDim2.new(-0.3, 0, math.random(), 0)
+	line.BackgroundColor3 = BLUE
+	line.BackgroundTransparency = 0.65
+	line.BorderSizePixel = 0
+	line.Parent = Background
+
+	task.spawn(function()
+		while ScreenGui.Parent do
+			line.Position = UDim2.new(-0.3, 0, math.random(), 0)
+
+			local tween = TweenService:Create(
+				line,
+				TweenInfo.new(
+					math.random(3, 6),
+					Enum.EasingStyle.Linear
+				),
+				{
+					Position = UDim2.new(1.3, 0, line.Position.Y.Scale, 0)
+				}
+			)
+
+			tween:Play()
+			tween.Completed:Wait()
+		end
+	end)
+end
+
+--==================================================
+-- SOUND
+--==================================================
+
+local Sound = Instance.new("Sound")
+Sound.SoundId = "rbxassetid://98337901681441"
+Sound.Volume = 0.7
+Sound.Looped = false
+Sound.Parent = Background
+
+pcall(function()
+	Sound:Play()
+end)
+
+--==================================================
+-- LOADING
+--==================================================
+
+local loadingMessages = {
+	"Inicializando sistema...",
+	"Carregando módulos...",
+	"Preparando interface...",
+	"Conectando ao jogo...",
+	"Finalizando..."
+}
+
+for i = 1, 100 do
+
+	local progress = i / 100
+
+	Bar:TweenSize(
+		UDim2.new(progress, 0, 1, 0),
+		Enum.EasingDirection.Out,
+		Enum.EasingStyle.Quad,
+		0.18,
+		true
+	)
+
+	Percent.Text = i .. "%"
+
+	if i < 20 then
+		Status.Text = loadingMessages[1]
+	elseif i < 45 then
+		Status.Text = loadingMessages[2]
+	elseif i < 70 then
+		Status.Text = loadingMessages[3]
+	elseif i < 90 then
+		Status.Text = loadingMessages[4]
+	else
+		Status.Text = loadingMessages[5]
+	end
+
+	task.wait(TOTAL_TIME / 100)
+end
+
+--==================================================
+-- FINALIZAÇÃO
+--==================================================
+
