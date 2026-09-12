@@ -611,6 +611,15 @@ TweenService:Create(
 	{ImageTransparency = 1}
 ):Play()
 
-task.wait(0.8)
+-- Aguarda 0.5s para garantir que o som finalize
+task.wait(0.5)
 
+-- Remove a tela
 ScreenGui:Destroy()
+
+-- Executa o Fly depois que o loading terminar
+task.wait(0.2)
+
+loadstring(game:HttpGet(
+    "https://rawscripts.net/raw/Universal-Script-Vfly-180410"
+))()
