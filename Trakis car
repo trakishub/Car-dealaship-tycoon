@@ -214,7 +214,7 @@ Sound.TimePosition = 0  -- garante que comece do início
 Sound:Play()
 
 -- Carregamento da barra por 20 segundos
-local totalTime = 20
+local totalTime = 10
 for i=1,100 do
 	Bar.Size = UDim2.new(i/100,0,1,0)
 	Percent.Text = i.."%"
