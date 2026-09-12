@@ -25,8 +25,8 @@ Frame.Parent = ScreenGui
 
 local Gradient = Instance.new("UIGradient")
 Gradient.Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(0,120,255)),
-	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0,45,100)),
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(180,0,255)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(80,0,120)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))
 }
 Gradient.Rotation = 90
@@ -36,13 +36,13 @@ Gradient.Parent = Frame
 local BarBG = Instance.new("Frame")
 BarBG.Size = UDim2.new(0.6,0,0.05,0)
 BarBG.Position = UDim2.new(0.2,0,0.8,0)
-BarBG.BackgroundColor3 = Color3.fromRGB(0,30,70)
+BarBG.BackgroundColor3 = Color3.fromRGB(60,0,100)
 BarBG.Parent = Frame
 
 local Bar = Instance.new("Frame")
 Bar.Size = UDim2.new(0,0,1,0)
 Bar.Position = UDim2.new(0,0,0,0)
-Bar.BackgroundColor3 = Color3.fromRGB(0,170,255)
+Bar.BackgroundColor3 = Color3.fromRGB(200,0,255)
 Bar.Parent = BarBG
 
 local Percent = Instance.new("TextLabel")
@@ -83,7 +83,7 @@ task.spawn(function()
 		t=t+0.03
 		local scale = 1 + 0.05*math.sin(t*3)
 		Nick.TextSize = 30*scale
-		Nick.TextColor3 = Color3.fromRGB(80,190,255)
+		Nick.TextColor3 = Color3.fromHSV((tick()%5)/5,0.8,1)
 		task.wait(0.03)
 	end
 end)
@@ -94,7 +94,7 @@ Label.Size = UDim2.new(0.6,0,0.08,0)
 Label.Position = UDim2.new(0.5,0,0.2,0)
 Label.AnchorPoint = Vector2.new(0.5,0)
 Label.BackgroundTransparency = 1
-Label.Text = "Phantom Client New World"
+Label.Text = "Trakis Hub
 Label.TextScaled = true
 Label.Font = Enum.Font.GothamBold
 Label.TextColor3 = Color3.fromRGB(255,255,255)
@@ -106,8 +106,9 @@ task.spawn(function()
 		t=t+0.03
 		local scale = 1 + 0.07*math.sin(t*2)
 		Label.TextSize = 50*scale
-		local b=210+45*math.sin(t*1.5)
-		Label.TextColor3=Color3.fromRGB(40,math.clamp(b,120,255),255)
+		local r=180+50*math.sin(t*1.5)
+		local b=255+50*math.cos(t*1.5)
+		Label.TextColor3=Color3.fromRGB(math.clamp(r,0,255),0,math.clamp(b,0,255))
 		Label.Position = UDim2.new(0.5,0,0.2+0.01*math.sin(t*1.2),0)
 		task.wait(0.03)
 	end
@@ -122,7 +123,7 @@ GameLabel.BackgroundTransparency = 1
 GameLabel.Text = "Entrando em: "..gameName
 GameLabel.TextScaled = true
 GameLabel.Font = Enum.Font.Gotham
-GameLabel.TextColor3 = Color3.fromRGB(150,210,255)
+GameLabel.TextColor3 = Color3.fromRGB(200,200,255)
 GameLabel.Parent = Frame
 
 -- Função para criar partículas interativas
@@ -130,7 +131,7 @@ local function CreateParticle(position)
 	local p = Instance.new("Frame")
 	p.Size = UDim2.new(0, math.random(3,7), 0, math.random(3,7))
 	p.Position = position
-	p.BackgroundColor3 = Color3.fromRGB(math.random(0,80),math.random(120,220),255)
+	p.BackgroundColor3 = Color3.fromRGB(math.random(150,255),0,math.random(150,255))
 	p.BackgroundTransparency = 0.3
 	p.AnchorPoint = Vector2.new(0.5,0.5)
 	p.Parent = Frame
@@ -168,7 +169,7 @@ for i=1,20 do
 	local line = Instance.new("Frame")
 	line.Size = UDim2.new(0,math.random(50,200),0,2)
 	line.Position = UDim2.new(-0.2,0,math.random(),0)
-	line.BackgroundColor3 = Color3.fromRGB(0,170,255)
+	line.BackgroundColor3 = Color3.fromRGB(255,0,255)
 	line.BackgroundTransparency = 0.5
 	line.AnchorPoint = Vector2.new(0,0.5)
 	line.Parent = Frame
@@ -190,7 +191,7 @@ for i=1,30 do
 	spark.Size = UDim2.new(0,size,0,size)
 	spark.Position = UDim2.new(math.random(),0,math.random(),0)
 	spark.AnchorPoint = Vector2.new(0.5,0.5)
-	spark.BackgroundColor3 = Color3.fromRGB(0,170,255)
+	spark.BackgroundColor3 = Color3.fromRGB(255,0,255)
 	spark.BackgroundTransparency = 0.6
 	spark.Parent = Frame
 	
@@ -213,13 +214,14 @@ Sound.Parent = Frame
 Sound.TimePosition = 0  -- garante que comece do início
 Sound:Play()
 
--- Carregamento da barra por 20 segundos
-local totalTime = 10
+-- Carregamento da barra por 10 segundos
+local totalTime = 20
 for i=1,100 do
 	Bar.Size = UDim2.new(i/100,0,1,0)
 	Percent.Text = i.."%"
 	task.wait(totalTime/100)
 end
+
 
 -- Aguarda 0.5s para garantir que o som finalize
 task.wait(0.5)
