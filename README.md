@@ -537,8 +537,79 @@ for i = 1, 100 do
 	task.wait(TOTAL_TIME /100)
 end
 
---================================================== -- FINALIZAÇÃO --================================================== Status.Text = "Carregamento concluído!" Percent.Text = "100%" task.wait(0.6) local fadeObjects = { Panel, Background, TopLine } for _, object in ipairs(fadeObjects) do if object:IsA("Frame") then TweenService:Create( object, TweenInfo.new(0.7, Enum.EasingStyle.Quad), {BackgroundTransparency = 1} ):Play() end end TweenService:Create( Title, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Subtitle, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Nick,TweenService:Create( Nick, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( GameLabel, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Status, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Percent, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Footer, TweenInfo.new(0.5), {TextTransparency = 1} ):Play() TweenService:Create( Avatar, TweenInfo.new(0.5), {ImageTransparency = 1} ):Play() 
+--==================================================
+-- FINALIZAÇÃO
+--==================================================
 
-task.wait(0.8) 
+Status.Text = "Carregamento concluído!"
+Percent.Text = "100%"
 
- ScreenGui:Destroy()
+task.wait(0.6)
+
+local fadeObjects = {
+	Panel,
+	Background,
+	TopLine
+}
+
+for _, object in ipairs(fadeObjects) do
+	if object:IsA("Frame") then
+		TweenService:Create(
+			object,
+			TweenInfo.new(0.7, Enum.EasingStyle.Quad),
+			{BackgroundTransparency = 1}
+		):Play()
+	end
+end
+
+TweenService:Create(
+	Title,
+	TweenInfo.new(0.5),
+	{TextTransparency = 1}
+):Play()
+
+TweenService:Create(
+	Subtitle,
+	TweenInfo.new(0.5),
+	{TextTransparency = 1}
+):Play()
+
+TweenService:Create(
+	Nick,
+	TweenInfo.new(0.5),
+	{TextTransparency = 1}
+):Play()
+
+TweenService:Create(
+	GameLabel,
+	TweenInfo.new(0.5),
+	{TextTransparency = 1}
+):Play()
+
+TweenService:Create(
+	Status,
+	TweenInfo.new(0.5),
+	{TextTransparency = 1}
+):Play()
+
+TweenService:Create(
+	Percent,
+	TweenInfo.new(0.5),
+	{TextTransparency = 1}
+):Play()
+
+TweenService:Create(
+	Footer,
+	TweenInfo.new(0.5),
+	{TextTransparency = 1}
+):Play()
+
+TweenService:Create(
+	Avatar,
+	TweenInfo.new(0.5),
+	{ImageTransparency = 1}
+):Play()
+
+task.wait(0.8)
+
+ScreenGui:Destroy()
