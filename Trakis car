@@ -19,7 +19,7 @@ local v2 = u1:CreateWindow({
 			ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 191, 255))
 		})
 	},
-	Background = "rbxassetid://118444640982733"
+	Background = "rbxassetid://135564032729913"
 })
 local t1 = {
 	MainTab = v2:Tab({
@@ -39,9 +39,9 @@ local t1 = {
 		Icon = "binoculars"
 	}),
 	LockedTab = v2:Tab({
-		Title = "Soon..",
+		Title = "Auto Farm",
 		Icon = "lock",
-		Desc = "Soon Update..",
+		Desc = "em breve...",
 		Locked = true
 	}),
 	LockedTab = v2:Tab({
