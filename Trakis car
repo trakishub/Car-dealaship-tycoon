@@ -1,625 +1,611 @@
-
---// TRAKIS HUB
---// Loading Screen - Blue / Black Neon
-
-local TweenService = game:GetService("TweenService")
-local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
-local MarketplaceService = game:GetService("MarketplaceService")
-
-local player = Players.LocalPlayer
-
---==================================================
--- CONFIG
---==================================================
-
-local TOTAL_TIME = 10
-
-local BLUE = Color3.fromRGB(0, 170, 255)
-local BLUE_LIGHT = Color3.fromRGB(80, 210, 255)
-local DARK = Color3.fromRGB(3, 7, 15)
-local DARK2 = Color3.fromRGB(7, 15, 28)
-
-local gameName = "Carregando..."
-pcall(function()
-	gameName = MarketplaceService:GetProductInfo(game.PlaceId).Name
-end)
-
---==================================================
--- SCREEN GUI
---==================================================
-
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "PhantomLoadingScreen"
-ScreenGui.IgnoreGuiInset = true
-ScreenGui.ResetOnSpawn = false
-ScreenGui.DisplayOrder = 999999
-ScreenGui.Parent = player:WaitForChild("PlayerGui")
-
---==================================================
--- BACKGROUND
---==================================================
-
-local Background = Instance.new("Frame")
-Background.Size = UDim2.fromScale(1, 1)
-Background.BackgroundColor3 = DARK
-Background.BorderSizePixel = 0
-Background.Parent = ScreenGui
-
-local BackgroundGradient = Instance.new("UIGradient")
-BackgroundGradient.Color = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 15, 30)),
-	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(2, 6, 14)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 20, 40))
+local u1 = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+local v2 = u1:CreateWindow({
+	Title = "Zynora Hub | Car Delearship Tycoon",
+	Author = "Exploits | Jaozin ",
+	Folder = "ZynoraHub",
+	NewElements = true,
+	HideSearchBar = false,
+	Size = UDim2.new(0, 400, 0, 350),
+	Icon = "monitor",
+	OpenButton = {
+		Title = "Zynora Hub",
+		CornerRadius = UDim.new(1, 0),
+		StrokeThickness = 3,
+		Enabled = true,
+		Draggable = true,
+		OnlyMobile = false,
+		Color = ColorSequence.new({
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 127)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 191, 255))
+		})
+	},
+	Background = "rbxassetid://99301498382135"
 })
-BackgroundGradient.Rotation = 45
-BackgroundGradient.Parent = Background
+local t1 = {
+	MainTab = v2:Tab({
+		Title = "Menu",
+		Icon = "settings"
+	}),
+	VehicleTab = v2:Tab({
+		Title = "Vehicle",
+		Icon = "car"
+	}),
+	MiscTab = v2:Tab({
+		Title = "Misc",
+		Icon = "annoyed"
+	}),
+	KillTab = v2:Tab({
+		Title = "Kill",
+		Icon = "binoculars"
+	}),
+	LockedTab = v2:Tab({
+		Title = "Soon..",
+		Icon = "lock",
+		Desc = "Soon Update..",
+		Locked = true
+	}),
+	LockedTab = v2:Tab({
+		Title = "Soon..",
+		Icon = "lock",
+		Desc = "Soon Update..",
+		Locked = true
+	}),
+	LockedTab = v2:Tab({
+		Title = "Soon..",
+		Icon = "lock",
+		Desc = "Soon Update..",
+		Locked = true
+	}),
+	LockedTab = v2:Tab({
+		Title = "Soon..",
+		Icon = "lock",
+		Desc = "Soon Update..",
+		Locked = true
+	}),
+	LockedTab = v2:Tab({
+		Title = "Soon..",
+		Icon = "lock",
+		Desc = "Soon Update..",
+		Locked = true
+	})
+}
 
---==================================================
--- BACKGROUND GLOW
---==================================================
-
-local Glow = Instance.new("Frame")
-Glow.Size = UDim2.fromScale(0.7, 0.7)
-Glow.Position = UDim2.fromScale(0.5, 0.48)
-Glow.AnchorPoint = Vector2.new(0.5, 0.5)
-Glow.BackgroundColor3 = BLUE
-Glow.BackgroundTransparency = 0.94
-Glow.BorderSizePixel = 0
-Glow.Parent = Background
-
-local GlowCorner = Instance.new("UICorner")
-GlowCorner.CornerRadius = UDim.new(1, 0)
-GlowCorner.Parent = Glow
-
-task.spawn(function()
-	while ScreenGui.Parent do
-		TweenService:Create(
-			Glow,
-			TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-			{BackgroundTransparency = 0.97}
-		):Play()
-
-		task.wait(2.5)
-
-		TweenService:Create(
-			Glow,
-			TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-			{BackgroundTransparency = 0.94}
-		):Play()
-
-		task.wait(2.5)
-	end
-end)
-
---==================================================
--- TOP LINE
---==================================================
-
-local TopLine = Instance.new("Frame")
-TopLine.Size = UDim2.new(1, 0, 0, 2)
-TopLine.Position = UDim2.new(0, 0, 0, 0)
-TopLine.BackgroundColor3 = BLUE
-TopLine.BorderSizePixel = 0
-TopLine.Parent = Background
-
-local TopGradient = Instance.new("UIGradient")
-TopGradient.Color = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 40, 80)),
-	ColorSequenceKeypoint.new(0.5, BLUE_LIGHT),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 40, 80))
+t1.MainTab:Paragraph({
+	Title = "Creator",
+	Desc = "Jaozin"
 })
-TopGradient.Parent = TopLine
 
---==================================================
--- MAIN PANEL
---==================================================
+local LocalPlayer = game:GetService("Players").LocalPlayer
 
-local Panel = Instance.new("Frame")
-Panel.Size = UDim2.new(0, 500, 0, 500)
-Panel.Position = UDim2.fromScale(0.5, 0.5)
-Panel.AnchorPoint = Vector2.new(0.5, 0.5)
-Panel.BackgroundColor3 = DARK2
-Panel.BackgroundTransparency = 0.08
-Panel.BorderSizePixel = 0
-Panel.Parent = Background
-
-local PanelCorner = Instance.new("UICorner")
-PanelCorner.CornerRadius = UDim.new(0, 22)
-PanelCorner.Parent = Panel
-
-local PanelStroke = Instance.new("UIStroke")
-PanelStroke.Color = BLUE
-PanelStroke.Thickness = 1.5
-PanelStroke.Transparency = 0.35
-PanelStroke.Parent = Panel
-
---==================================================
--- PANEL TOP GLOW
---==================================================
-
-local PanelGlow = Instance.new("Frame")
-PanelGlow.Size = UDim2.new(0.7, 0, 0, 2)
-PanelGlow.Position = UDim2.new(0.15, 0, 0, 0)
-PanelGlow.BackgroundColor3 = BLUE_LIGHT
-PanelGlow.BorderSizePixel = 0
-PanelGlow.Parent = Panel
-
-local PanelGlowCorner = Instance.new("UICorner")
-PanelGlowCorner.CornerRadius = UDim.new(1, 0)
-PanelGlowCorner.Parent = PanelGlow
-
---==================================================
--- LOGO / ICON
---==================================================
-
-local Avatar = Instance.new("ImageLabel")
-Avatar.Size = UDim2.new(0, 115, 0, 115)
-Avatar.Position = UDim2.new(0.5, 0, 0.23, 0)
-Avatar.AnchorPoint = Vector2.new(0.5, 0.5)
-Avatar.BackgroundColor3 = Color3.fromRGB(0, 20, 38)
-Avatar.BorderSizePixel = 0
-Avatar.Image = Players:GetUserThumbnailAsync(
-	player.UserId,
-	Enum.ThumbnailType.HeadShot,
-	Enum.ThumbnailSize.Size420x420
-)
-Avatar.Parent = Panel
-
-local AvatarCorner = Instance.new("UICorner")
-AvatarCorner.CornerRadius = UDim.new(1, 0)
-AvatarCorner.Parent = Avatar
-
-local AvatarStroke = Instance.new("UIStroke")
-AvatarStroke.Color = BLUE
-AvatarStroke.Thickness = 3
-AvatarStroke.Parent = Avatar
-
--- pulsação do avatar
-task.spawn(function()
-	while ScreenGui.Parent do
-		TweenService:Create(
-			AvatarStroke,
-			TweenInfo.new(1.2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-			{Transparency = 0.6}
-		):Play()
-
-		task.wait(1.2)
-
-		TweenService:Create(
-			AvatarStroke,
-			TweenInfo.new(1.2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-			{Transparency = 0}
-		):Play()
-
-		task.wait(1.2)
-	end
-end)
-
---==================================================
--- TITLE
---==================================================
-
-local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(0.9, 0, 0, 55)
-Title.Position = UDim2.new(0.05, 0, 0.39, 0)
-Title.BackgroundTransparency = 1
-Title.Text = "TRAKIS HUB"
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.Font = Enum.Font.GothamBlack
-Title.TextScaled = true
-Title.Parent = Panel
-
-local TitleStroke = Instance.new("UIStroke")
-TitleStroke.Color = BLUE
-TitleStroke.Thickness = 1.5
-TitleStroke.Transparency = 0.25
-TitleStroke.Parent = Title
-
---==================================================
--- SUBTITLE
---==================================================
-
-local Subtitle = Instance.new("TextLabel")
-Subtitle.Size = UDim2.new(0.9, 0, 0, 28)
-Subtitle.Position = UDim2.new(0.05, 0, 0.50, 0)
-Subtitle.BackgroundTransparency = 1
-Subtitle.Text = "BEST SCRIPT"
-Subtitle.TextColor3 = BLUE_LIGHT
-Subtitle.Font = Enum.Font.GothamBold
-Subtitle.TextScaled = true
-Subtitle.Parent = Panel
-
---==================================================
--- USER NAME
---==================================================
-
-local Nick = Instance.new("TextLabel")
-Nick.Size = UDim2.new(0.8, 0, 0, 25)
-Nick.Position = UDim2.new(0.1, 0, 0.57, 0)
-Nick.BackgroundTransparency = 1
-Nick.Text = "Olá, " .. player.Name
-Nick.TextColor3 = Color3.fromRGB(200, 220, 235)
-Nick.Font = Enum.Font.GothamMedium
-Nick.TextScaled = true
-Nick.Parent = Panel
-
---==================================================
--- GAME NAME
---==================================================
-
-local GameLabel = Instance.new("TextLabel")
-GameLabel.Size = UDim2.new(0.85, 0, 0, 24)
-GameLabel.Position = UDim2.new(0.075, 0, 0.635, 0)
-GameLabel.BackgroundTransparency = 1
-GameLabel.Text = "Entrando em: " .. gameName
-GameLabel.TextColor3 = Color3.fromRGB(130, 160, 180)
-GameLabel.Font = Enum.Font.Gotham
-GameLabel.TextScaled = true
-GameLabel.Parent = Panel
-
---==================================================
--- STATUS
---==================================================
-
-local Status = Instance.new("TextLabel")
-Status.Size = UDim2.new(0.8, 0, 0, 25)
-Status.Position = UDim2.new(0.1, 0, 0.70, 0)
-Status.BackgroundTransparency = 1
-Status.Text = "Inicializando..."
-Status.TextColor3 = BLUE_LIGHT
-Status.Font = Enum.Font.GothamBold
-Status.TextScaled = true
-Status.Parent = Panel
-
---==================================================
--- PROGRESS BAR BACKGROUND
---==================================================
-
-local BarBG = Instance.new("Frame")
-BarBG.Size = UDim2.new(0.78, 0, 0, 12)
-BarBG.Position = UDim2.new(0.11, 0, 0.79, 0)
-BarBG.BackgroundColor3 = Color3.fromRGB(15, 30, 45)
-BarBG.BorderSizePixel = 0
-BarBG.Parent = Panel
-
-local BarBGCorner = Instance.new("UICorner")
-BarBGCorner.CornerRadius = UDim.new(1, 0)
-BarBGCorner.Parent = BarBG
-
-local Bar = Instance.new("Frame")
-Bar.Size = UDim2.new(0, 0, 1, 0)
-Bar.BackgroundColor3 = BLUE
-Bar.BorderSizePixel = 0
-Bar.Parent = BarBG
-
-local BarCorner = Instance.new("UICorner")
-BarCorner.CornerRadius = UDim.new(1, 0)
-BarCorner.Parent = Bar
-
-local BarGradient = Instance.new("UIGradient")
-BarGradient.Color = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 100, 200)),
-	ColorSequenceKeypoint.new(0.5, BLUE_LIGHT),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 120, 255))
+t1.MainTab:Paragraph({
+	Title = LocalPlayer.Name,
+	Desc = "Discord: https://discord.gg/UC2DxSYYsZ",
+	Image = "rbxassetid://99301498382135",
+	ImageSize = 50
 })
-BarGradient.Parent = Bar
+t1.VehicleTab:Section({
+	Title = "Car"
+})
 
-local BarStroke = Instance.new("UIStroke")
-BarStroke.Color = BLUE
-BarStroke.Thickness = 1
-BarStroke.Transparency = 0.3
-BarStroke.Parent = BarBG
+local n1 = 120
+local n2 = 80
+local n3 = 350
+local t2 = {}
+local t3 = {}
 
---==================================================
--- PERCENT
---==================================================
+t1.VehicleTab:Input({
+	Title = "Speed ",
+	Placeholder = "Ex: 150 (mínimo 120)",
+	Callback = function(p1)
+		-- upvalues: n1 (ref), u1 (ref)
+		local num = tonumber(p1)
 
-local Percent = Instance.new("TextLabel")
-Percent.Size = UDim2.new(0.25, 0, 0, 28)
-Percent.Position = UDim2.new(0.375, 0, 0.825, 0)
-Percent.BackgroundTransparency = 1
-Percent.Text = "0%"
-Percent.TextColor3 = Color3.fromRGB(255, 255, 255)
-Percent.Font = Enum.Font.GothamBlack
-Percent.TextScaled = true
-Percent.Parent = Panel
-
---==================================================
--- FOOTER
---==================================================
-
-local Footer = Instance.new("TextLabel")
-Footer.Size = UDim2.new(0.8, 0, 0, 20)
-Footer.Position = UDim2.new(0.1, 0, 0.92, 0)
-Footer.BackgroundTransparency = 1
-Footer.Text = "PHANTOM CLIENT • LOADING SYSTEM"
-Footer.TextColor3 = Color3.fromRGB(70, 110, 135)
-Footer.Font = Enum.Font.Gotham
-Footer.TextScaled = true
-Footer.Parent = Panel
-
---==================================================
--- PARTICLES
---==================================================
-
-local function CreateParticle()
-	local particle = Instance.new("Frame")
-
-	local size = math.random(2, 5)
-
-	particle.Size = UDim2.new(0, size, 0, size)
-	particle.Position = UDim2.new(
-		math.random(),
-		0,
-		math.random(),
-		0
-	)
-
-	particle.BackgroundColor3 = BLUE
-	particle.BackgroundTransparency = math.random(30, 70) / 100
-	particle.BorderSizePixel = 0
-	particle.AnchorPoint = Vector2.new(0.5, 0.5)
-	particle.Parent = Background
-
-	local corner = Instance.new("UICorner")
-	corner.CornerRadius = UDim.new(1, 0)
-	corner.Parent = particle
-
-	task.spawn(function()
-		while particle.Parent do
-			local target = UDim2.new(
-				math.random(),
-				0,
-				math.random(),
-				0
-			)
-
-			local tween = TweenService:Create(
-				particle,
-				TweenInfo.new(
-					math.random(3, 6),
-					Enum.EasingStyle.Sine,
-					Enum.EasingDirection.InOut
-				),
-				{
-					Position = target,
-					BackgroundTransparency = math.random(20, 80) / 100
-				}
-			)
-
-			tween:Play()
-			tween.Completed:Wait()
+		if not num or not (num >= 120) then
+			u1:Notify({
+				Title = "Invalid Value",
+				Content = "Enter a number above 120.",
+				Icon = "rbxassetid://112583030691036",
+				IconThemed = true,
+				Duration = 5
+			})
+		else
+			n1 = num
+			u1:Notify({
+				Title = "Speed Updated",
+				Content = "New base speed: " .. n1,
+				Icon = "rbxassetid://112583030691036",
+				IconThemed = true,
+				Duration = 5
+			})
 		end
-	end)
-end
-
-for i = 1, 45 do
-	CreateParticle()
-end
-
---==================================================
--- MOUSE / TOUCH PARTICLES
---==================================================
-
-UserInputService.InputChanged:Connect(function(input)
-	if not ScreenGui.Parent then
-		return
 	end
+})
+t1.VehicleTab:Toggle({
+	Title = "Unlock Car Speed",
+	Value = false,
+	Callback = function(p2)
+		-- upvalues: t2 (ref), t3 (ref), n1 (ref), n3 (ref), n2 (ref), u1 (ref)
+		if not p2 then
+			for k, v in pairs(t2) do
+				if rawget(k, "GearSpeeds") then
+					for k2, v3 in pairs(v) do
+						k.GearSpeeds[k2] = v3
+					end
+				end
+			end
 
-	if input.UserInputType == Enum.UserInputType.MouseMovement
-		or input.UserInputType == Enum.UserInputType.Touch then
+			for k, v in pairs(t3) do
+				if rawget(k, "GearAccels") then
+					for k3, v4 in pairs(v) do
+						k.GearAccels[k3] = v4
+					end
+				end
+			end
 
-		local camera = workspace.CurrentCamera
+			u1:Notify({
+				Title = "Tuning Disabled",
+				Content = "Speeds restored to default.",
+				Icon = "rbxassetid://112583030691036",
+				IconThemed = true,
+				Duration = 5
+			})
+		else
+			for _, v in ipairs(getgc(true)) do
+				if typeof(v) == "table" and rawget(v, "GearSpeeds") and rawget(v, "GearAccels") then
+					local v77 = rawget(v, "GearSpeeds")
+					local v78 = rawget(v, "GearAccels")
 
-		if camera then
-			local x = input.Position.X / camera.ViewportSize.X
-			local y = input.Position.Y / camera.ViewportSize.Y
+					if typeof(v77) == "table" and typeof(v78) == "table" then
+						t2[v] = table.clone(v77)
+						t3[v] = table.clone(v78)
 
-			local particle = Instance.new("Frame")
-			particle.Size = UDim2.new(0, 5, 0, 5)
-			particle.Position = UDim2.new(x, 0, y, 0)
-			particle.AnchorPoint = Vector2.new(0.5, 0.5)
-			particle.BackgroundColor3 = BLUE_LIGHT
-			particle.BackgroundTransparency = 0.15
-			particle.BorderSizePixel = 0
-			particle.Parent = Background
+						for i = 1, 5 do
+							v77[i] = math.min(n1 * i, n3)
+							v78[i] = n2 / i ^ 1.7
+						end
 
-			local corner = Instance.new("UICorner")
-			corner.CornerRadius = UDim.new(1, 0)
-			corner.Parent = particle
+						v77[-1] = -n1 * 0.4
+						v78[-1] = n2 * 0.5
+					end
+				end
+			end
 
-			TweenService:Create(
-				particle,
-				TweenInfo.new(0.7, Enum.EasingStyle.Quad),
-				{
-					Size = UDim2.new(0, 18, 0, 18),
-					BackgroundTransparency = 1
-				}
-			):Play()
+			u1:Notify({
+				Title = "Tuning Enabled",
+				Content = "Torque curve adjusted. Drift under control.",
+				Icon = "rbxassetid://112583030691036",
+				IconThemed = true,
+				Duration = 5
+			})
+		end
+	end
+})
+t1.VehicleTab:Button({
+	Title = "Reset Tuning to Default",
+	Desc = "Reverts to 120 speed and 80 acceleration",
+	Callback = function()
+		-- upvalues: n1 (ref), n2 (ref), u1 (ref)
+		n1 = 120
+		n2 = 80
+		u1:Notify({
+			Title = "Tuning Reset",
+			Content = "Default settings restored.",
+			Icon = "rbxassetid://112583030691036",
+			IconThemed = true,
+			Duration = 5
+		})
+	end
+})
+t1.VehicleTab:Section({
+	Title = "Dupe Cars - Beta Test"
+})
+t1.VehicleTab:Button({
+	Title = "Dupe Car BETA",
+	Desc = "Double Click When You Sit in the Car.",
+	Callback = function()
+		local Spawn = game:GetService("ReplicatedStorage").Remotes.Spawn
+		local t4 = {
+			[1] = "Nissan17",
+			[2] = "7c796343-baac-4b8b-a498-7ed18fdba4de",
+			[3] = "Touch"
+		}
 
-			task.delay(0.8, function()
-				if particle then
-					particle:Destroy()
+		Spawn:FireServer(unpack(t4))
+		Spawn:FireServer(unpack(t4))
+		Spawn:FireServer(unpack(t4))
+		Spawn:FireServer(unpack(t4))
+		Spawn:FireServer(unpack(t4))
+	end
+})
+
+local u10 = t1.MiscTab:Slider({
+	Title = "WalkSpeed",
+	Value = {
+		Min = 16,
+		Max = 100,
+		Default = 16
+	},
+	Callback = function(p3)
+		local LocalPlayer2 = game.Players.LocalPlayer
+
+		if LocalPlayer2.Character and LocalPlayer2.Character:FindFirstChild("Humanoid") then
+			LocalPlayer2.Character.Humanoid.WalkSpeed = p3
+		end
+	end
+})
+local u11 = t1.MiscTab:Slider({
+	Title = "JumpPower",
+	Value = {
+		Min = 50,
+		Max = 200,
+		Default = 50
+	},
+	Callback = function(p4)
+		local LocalPlayer3 = game.Players.LocalPlayer
+
+		if LocalPlayer3.Character and LocalPlayer3.Character:FindFirstChild("Humanoid") then
+			LocalPlayer3.Character.Humanoid.UseJumpPower = true
+			LocalPlayer3.Character.Humanoid.JumpPower = p4
+		end
+	end
+})
+
+t1.MiscTab:Button({
+	Title = "Reset Speed/Jump",
+	Desc = "Resets WalkSpeed and JumpPower (and sliders)",
+	Callback = function()
+		-- upvalues: u10 (ref), u11 (ref)
+		local LocalPlayer4 = game.Players.LocalPlayer
+
+		if LocalPlayer4.Character and LocalPlayer4.Character:FindFirstChild("Humanoid") then
+			local Humanoid = LocalPlayer4.Character.Humanoid
+
+			Humanoid.WalkSpeed = 16
+			Humanoid.UseJumpPower = true
+			Humanoid.JumpPower = 50
+
+			if u10 and u10.SetValue then
+				u10:SetValue(16)
+			end
+
+			if u11 and u11.SetValue then
+				u11:SetValue(50)
+			end
+
+			print("Resetado com sliders sincronizados.")
+		end
+	end
+})
+t1.MiscTab:Button({
+	Title = "Sit",
+	Callback = function()
+		local LocalPlayer5 = game.Players.LocalPlayer
+
+		if LocalPlayer5.Character and LocalPlayer5.Character:FindFirstChild("Humanoid") then
+			LocalPlayer5.Character.Humanoid.Sit = true
+		end
+	end
+})
+
+local u12 = false
+local connection = nil
+
+t1.MiscTab:Toggle({
+	Title = "Noclip",
+	Value = false,
+	Callback = function(p5)
+		-- upvalues: u12 (ref), connection (ref)
+		u12 = p5
+
+		local LocalPlayer6 = game.Players.LocalPlayer
+		local RunService = game:GetService("RunService")
+
+		if not p5 then
+			if connection then
+				connection:Disconnect()
+			end
+		else
+			connection = RunService.Stepped:Connect(function()
+				-- upvalues: LocalPlayer6 (ref)
+				if LocalPlayer6.Character then
+					for _, descendant in ipairs(LocalPlayer6.Character:GetDescendants()) do
+						if descendant:IsA("BasePart") then
+							descendant.CanCollide = false
+						end
+					end
 				end
 			end)
 		end
 	end
-end)
+})
 
---==================================================
--- MOVING NEON LINES
---==================================================
+local connection2 = nil
 
-for i = 1, 12 do
-	local line = Instance.new("Frame")
+t1.MiscTab:Toggle({
+	Title = "Infinite Jump",
+	Value = false,
+	Callback = function(p6)
+		-- upvalues: connection2 (ref)
+		local LocalPlayer7 = game.Players.LocalPlayer
+		local UserInputService = game:GetService("UserInputService")
 
-	line.Size = UDim2.new(0, math.random(80, 220), 0, 1)
-	line.Position = UDim2.new(-0.3, 0, math.random(), 0)
-	line.BackgroundColor3 = BLUE
-	line.BackgroundTransparency = 0.65
-	line.BorderSizePixel = 0
-	line.Parent = Background
-
-	task.spawn(function()
-		while ScreenGui.Parent do
-			line.Position = UDim2.new(-0.3, 0, math.random(), 0)
-
-			local tween = TweenService:Create(
-				line,
-				TweenInfo.new(
-					math.random(3, 6),
-					Enum.EasingStyle.Linear
-				),
-				{
-					Position = UDim2.new(1.3, 0, line.Position.Y.Scale, 0)
-				}
-			)
-
-			tween:Play()
-			tween.Completed:Wait()
+		if not p6 then
+			if connection2 then
+				connection2:Disconnect()
+			end
+		else
+			connection2 = UserInputService.JumpRequest:Connect(function()
+				-- upvalues: LocalPlayer7 (ref)
+				if LocalPlayer7.Character and LocalPlayer7.Character:FindFirstChild("Humanoid") then
+					LocalPlayer7.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+				end
+			end)
 		end
-	end)
-end
+	end
+})
 
---==================================================
--- SOUND
---==================================================
+local s1 = ""
 
-local Sound = Instance.new("Sound")
-Sound.SoundId = "rbxassetid://98337901681441"
-Sound.Volume = 0.7
-Sound.Looped = false
-Sound.Parent = Background
+t1.MiscTab:Input({
+	Title = "Player Name",
+	Placeholder = "Enter partial name",
+	Callback = function(p7)
+		-- upvalues: s1 (ref)
+		s1 = p7
+	end
+})
+t1.MiscTab:Button({
+	Title = "Teleport to Player",
+	Callback = function()
+		-- upvalues: s1 (ref)
+		local LocalPlayer8 = game.Players.LocalPlayer
+		local v40 = nil
+		local v41 = string.lower(s1)
 
-pcall(function()
-	Sound:Play()
-end)
+		for _, player in pairs(game.Players:GetPlayers()) do
+			if string.find(string.lower(player.Name), v41) or string.find(string.lower(player.DisplayName), v41) then
+				v40 = player
 
---==================================================
--- LOADING
---==================================================
+				break
+			end
+		end
 
-local loadingMessages = {
-	"Inicializando sistema...",
-	"Carregando módulos...",
-	"Preparando interface...",
-	"Conectando ao jogo...",
-	"Finalizando..."
-}
+		if not v40 or not v40.Character or not v40.Character:FindFirstChild("HumanoidRootPart") then
+			warn("No matching player found.")
+		else
+			local Character = LocalPlayer8.Character
 
-for i = 1, 100 do
+			if Character and Character:FindFirstChild("HumanoidRootPart") then
+				Character.HumanoidRootPart.CFrame = v40.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
+				print("Teleported to:", v40.Name)
+			end
+		end
+	end
+})
+t1.KillTab:Section({
+	Title = "Players who are not close to you will not be able to be detected by you."
+})
 
-	local progress = i / 100
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local u19 = nil
+local u20 = false
+local u21 = nil
+local u22 = false
+local u23 = nil
 
-	Bar:TweenSize(
-		UDim2.new(progress, 0, 1, 0),
-		Enum.EasingDirection.Out,
-		Enum.EasingStyle.Quad,
-		0.18,
-		true
-	)
+local function u24(p8)
+	local v28 = p8:find(" ")
 
-	Percent.Text = i .. "%"
-
-	if i < 20 then
-		Status.Text = loadingMessages[1]
-	elseif i < 45 then
-		Status.Text = loadingMessages[2]
-	elseif i < 70 then
-		Status.Text = loadingMessages[3]
-	elseif i < 90 then
-		Status.Text = loadingMessages[4]
-	else
-		Status.Text = loadingMessages[5]
+	if not v28 then
+		return ""
 	end
 
-	task.wait(TOTAL_TIME / 100)
+	return p8:sub(v28 + 1)
+end
+local function u25(p9)
+	-- upvalues: Players (ref), u24 (ref)
+	local v84 = p9:lower()
+
+	for _, player in pairs(Players:GetPlayers()) do
+		local v87 = player.Name:lower()
+		local v88 = (player.DisplayName or ""):lower()
+		local v89 = u24(player.Name):lower()
+
+		if v87:find(v84, 1, true) or v88:find(v84, 1, true) or v89 ~= "" and v89:find(v84, 1, true) then
+			return player
+		end
+	end
+
+	return nil
 end
 
+t1.KillTab:Input({
+	Title = "Fling Target",
+	Placeholder = "Type name, last name or nickname",
+	Callback = function(p10)
+		-- upvalues: u19 (ref), u25 (ref)
+		local v91 = p10:match("^%s*(.-)%s*$")
 
---==================================================
--- FINALIZAÇÃO
---==================================================
+		if v91 ~= "" then
+			local v92 = u25(v91)
 
-Status.Text = "Carregamento concluído!"
-Percent.Text = "100%"
+			u19 = v92
 
-task.wait(0.6)
+			if not v92 then
+				warn("No player found for:", v91)
+			else
+				print("Target updated to:", v92.Name)
+			end
 
-local fadeObjects = {
-	Panel,
-	Background,
-	TopLine
-}
+			return
+		end
 
-for _, object in ipairs(fadeObjects) do
-	if object:IsA("Frame") then
-		TweenService:Create(
-			object,
-			TweenInfo.new(0.7, Enum.EasingStyle.Quad),
-			{BackgroundTransparency = 1}
-		):Play()
+		u19 = nil
+		print("Target cleared.")
+	end
+})
+
+local function u26(p11)
+	if p11 then
+		local HumanoidRootPart = p11:FindFirstChild("HumanoidRootPart")
+
+		if HumanoidRootPart then
+			for _, child in pairs(HumanoidRootPart:GetChildren()) do
+				if (child:IsA("BodyForce") or child:IsA("BodyAngularVelocity")) and child.Name == "FlingForce" then
+					child:Destroy()
+				end
+			end
+
+			local BodyForce = Instance.new("BodyForce")
+
+			BodyForce.Name = "FlingForce"
+			BodyForce.Force = Vector3.new(0, 0, 0)
+			BodyForce.Parent = HumanoidRootPart
+
+			local BodyAngularVelocity = Instance.new("BodyAngularVelocity")
+
+			BodyAngularVelocity.Name = "FlingForce"
+			BodyAngularVelocity.MaxTorque = Vector3.new(100000000, 100000000, 100000000)
+			BodyAngularVelocity.AngularVelocity = Vector3.new(50, 50, 50)
+			BodyAngularVelocity.Parent = HumanoidRootPart
+
+			return BodyForce, BodyAngularVelocity
+		end
+
+		return
 	end
 end
 
-TweenService:Create(
-	Title,
-	TweenInfo.new(0.5),
-	{TextTransparency = 1}
-):Play()
+t1.KillTab:Toggle({
+	Title = "Enable Fling",
+	Value = false,
+	Callback = function(p12)
+		-- upvalues: u20 (ref), Players (ref), u19 (ref), u26 (ref), u21 (ref), RunService (ref)
+		u20 = p12
 
-TweenService:Create(
-	Subtitle,
-	TweenInfo.new(0.5),
-	{TextTransparency = 1}
-):Play()
+		local Character = Players.LocalPlayer.Character
 
-TweenService:Create(
-	Nick,
-	TweenInfo.new(0.5),
-	{TextTransparency = 1}
-):Play()
+		if not u20 then
+			if u21 then
+				u21:Disconnect()
+				u21 = nil
+			end
 
-TweenService:Create(
-	GameLabel,
-	TweenInfo.new(0.5),
-	{TextTransparency = 1}
-):Play()
+			if Character then
+				local HumanoidRootPart = Character:FindFirstChild("HumanoidRootPart")
 
-TweenService:Create(
-	Status,
-	TweenInfo.new(0.5),
-	{TextTransparency = 1}
-):Play()
+				if HumanoidRootPart then
+					for _, child in pairs(HumanoidRootPart:GetChildren()) do
+						if (child:IsA("BodyForce") or child:IsA("BodyAngularVelocity")) and child.Name == "FlingForce" then
+							child:Destroy()
+						end
+					end
+				end
+			end
 
-TweenService:Create(
-	Percent,
-	TweenInfo.new(0.5),
-	{TextTransparency = 1}
-):Play()
+			print("Fling disabled.")
+		else
+			if not u19 then
+				warn("No target defined for fling!")
+				u20 = false
 
-TweenService:Create(
-	Footer,
-	TweenInfo.new(0.5),
-	{TextTransparency = 1}
-):Play()
+				return
+			end
 
-TweenService:Create(
-	Avatar,
-	TweenInfo.new(0.5),
-	{ImageTransparency = 1}
-):Play()
+			if not Character or not Character:FindFirstChild("HumanoidRootPart") then
+				warn("Local character is not ready!")
+				u20 = false
 
--- Aguarda 0.5s para garantir que o som finalize
-task.wait(0.5)
+				return
+			end
 
--- Remove a tela
-ScreenGui:Destroy()
+			local Character2 = u19.Character
 
--- Executa o Fly depois que o loading terminar
-task.wait(0.2)
+			if not Character2 or not Character2:FindFirstChild("HumanoidRootPart") then
+				warn("Target character is not ready!")
+				u20 = false
 
-loadstring(game:HttpGet(
-    "https://rawscripts.net/raw/Universal-Script-Vfly-180410"
-))()
+				return
+			end
+
+			local u35, v36 = u26(Character)
+
+			if not u35 or not v36 then
+				warn("Failed to create forces!")
+				u20 = false
+
+				return
+			end
+
+			if u21 then
+				u21:Disconnect()
+				u21 = nil
+			end
+
+			u21 = RunService.Heartbeat:Connect(function()
+				-- upvalues: Character (ref), Character2 (ref), u35 (ref)
+				local HumanoidRootPart = Character.HumanoidRootPart
+				local HumanoidRootPart2 = Character2.HumanoidRootPart
+
+				if HumanoidRootPart and HumanoidRootPart2 then
+					HumanoidRootPart.CFrame = CFrame.new(HumanoidRootPart2.Position + Vector3.new(0, 0, 0))
+					u35.Force = (HumanoidRootPart2.Position - HumanoidRootPart.Position).Unit * 10000000 + Vector3.new(0, 10000000, 0)
+				end
+			end)
+			print("Fling enabled on target:", u19.Name)
+		end
+	end
+})
+t1.KillTab:Toggle({
+	Title = "View Target",
+	Value = false,
+	Callback = function(p13)
+		-- upvalues: u22 (ref), Workspace (ref), Players (ref), u19 (ref), u23 (ref)
+		u22 = p13
+
+		local CurrentCamera = Workspace.CurrentCamera
+		local LocalPlayer9 = Players.LocalPlayer
+
+		if not u22 then
+			if not u23 then
+				local Character = LocalPlayer9.Character
+
+				if Character and Character:FindFirstChild("Humanoid") then
+					CurrentCamera.CameraSubject = Character.Humanoid
+				end
+			else
+				CurrentCamera.CameraSubject = u23
+			end
+
+			CurrentCamera.CameraType = Enum.CameraType.Custom
+			u23 = nil
+			print("Camera reverted to local player.")
+		else
+			if not u19 then
+				warn("No target defined for view!")
+				u22 = false
+
+				return
+			end
+
+			local Character = u19.Character
+
+			if not Character or not Character:FindFirstChild("Humanoid") then
+				warn("Target humanoid not found.")
+				u22 = false
+			else
+				if not u23 then
+					u23 = CurrentCamera.CameraSubject
+				end
+
+				CurrentCamera.CameraSubject = Character.Humanoid
+				CurrentCamera.CameraType = Enum.CameraType.Custom
+				print("Camera now viewing target:", u19.Name)
+			end
+		end
+	end
+})
+v2:SelectTab(1)
+game.Workspace.FallenPartsDestroyHeight = -math.huge
